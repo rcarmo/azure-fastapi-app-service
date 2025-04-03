@@ -172,3 +172,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Documentation helper
+.aider*
+.notes.txt
+
+.vscode

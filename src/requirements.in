@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+azure-identity
+azure-keyvault-secrets
+azure-monitor-opentelemetry
