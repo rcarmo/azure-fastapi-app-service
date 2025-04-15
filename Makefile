@@ -1,16 +1,21 @@
 # Makefile for Azure FastAPI App Service Deployment
 
 # Default configuration
-ENV ?= dev
-RESOURCE_GROUP ?= rg-fastapi-$(ENV)
-LOCATION ?= westeurope
-BASENAME ?= rcarmo-test
-ACR_NAME ?= $(shell echo $(BASENAME)-acr-$(ENV) | tr -d '-')
-IMAGE_NAME ?= fastapi-env-app
-TAG ?= latest
-IMAGE_FULL_NAME ?= $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(TAG)
-FEATURE_FLAGS ?= ""
-TENANT_ID ?= $(shell az account show --query tenantId -o tsv)
+export ENV ?= dev
+export RESOURCE_GROUP ?= rg-fastapi-$(ENV)
+export LOCATION ?= westeurope
+export BASENAME ?= rcarmo-test
+export ACR_NAME ?= $(shell echo $(BASENAME)-acr-$(ENV) | tr -d '-')
+export IMAGE_NAME ?= fastapi-env-app
+export TAG ?= latest
+export IMAGE_FULL_NAME ?= $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(TAG)
+export FEATURE_FLAGS ?= ""
+export TENANT_ID ?= $(shell az account show --query tenantId -o tsv)
+
+# Load environment variables from .env file if it exists
+# This allows for sensitive information to be stored outside the Makefile
+# Please note that depending on environment you may need to use export FOO=bar
+-include .env
 
 .PHONY: help init build push login-acr deploy-infra deploy-app deploy clean register-entra-app update-auth
 
